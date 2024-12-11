@@ -22,7 +22,7 @@ namespace DFI.Application.Features.PKICertificate.Commands
         {
             return new Response<RevokeSpecifiedCertificateResponse>()
             {
-                Data = await _pKICertificateService.RevokeSpecifiedCertificate(request.revokeSpecifiedCertificateRequest);
+                Data = await _pKICertificateService.RevokeSpecifiedCertificate(request.revokeSpecifiedCertificateRequest)
             };
         }
     }

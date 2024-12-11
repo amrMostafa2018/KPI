@@ -28,43 +28,43 @@ namespace DFI.Infrastructure.Persistence.Services
         public async Task<CertificatePkcs10EnrollResponse> Pkcs10Enroll(CertificatePkcs10EnrollRequest certificatePkcs10EnrollRequest)
         {
 
-            try
-            {
-                // Path to the .p12 (or .pfx) certificate file
-                string certificatePath = @"C:\Users\amr.mostafa\Downloads\PKI\PKI\SuperAdmin.p12";
-                // Password for the certificate file
-                string certificatePassword = "foo123";
+            //try
+            //{
+            //    // Path to the .p12 (or .pfx) certificate file
+            //    string certificatePath = @"197.168.1.67:443\SuperAdmin.p12";
+            //    // Password for the certificate file
+            //    string certificatePassword = "foo123";
 
-                // Load the certificate
-                X509Certificate2 certificate = new X509Certificate2(certificatePath, certificatePassword);
+            //    // Load the certificate
+            //    X509Certificate2 certificate = new X509Certificate2(certificatePath, certificatePassword);
 
-                // Create a HttpClientHandler and attach the certificate
-                var handler = new HttpClientHandler();
-                handler.ClientCertificates.Add(certificate);
+            //    // Create a HttpClientHandler and attach the certificate
+            //    var handler = new HttpClientHandler();
+            //    handler.ClientCertificates.Add(certificate);
 
-                // Optional: Ignore SSL errors for development purposes (not recommended for production)
-                //handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-                var data = new JsonContent(certificatePkcs10EnrollRequest);
-                // Create HttpClient with the handler
-                using (var client = new HttpClient(handler))
-                {
-                    // Make a request
-                    var response = await client.PostAsync("https://197.168.1.67/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll", data);
-                    //HttpResponseMessage response = client.PostAsync("https://197.168.1.67/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll", data).Result;
+            //    // Optional: Ignore SSL errors for development purposes (not recommended for production)
+            //    //handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            //    var data = new JsonContent(certificatePkcs10EnrollRequest);
+            //    // Create HttpClient with the handler
+            //    using (var client = new HttpClient(handler))
+            //    {
+            //        // Make a request
+            //        var response = await client.PostAsync("https://197.168.1.67/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll", data);
+            //        //HttpResponseMessage response = client.PostAsync("https://197.168.1.67/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll", data).Result;
 
-                    // Read and display the response
-                    Console.WriteLine($"Response status: {response.StatusCode}");
-                    Console.WriteLine($"Response content: {response.Content.ReadAsStringAsync().Result}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
+            //        // Read and display the response
+            //        Console.WriteLine($"Response status: {response.StatusCode}");
+            //        Console.WriteLine($"Response content: {response.Content.ReadAsStringAsync().Result}");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error: {ex.Message}");
+            //}
 
 
 
-           // X509Certificate2 certificate = new X509Certificate2(@"C:\Users\amr.mostafa\Downloads\PKI\PKI\SuperAdmin.p12", "foo123", X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable);
+            // X509Certificate2 certificate = new X509Certificate2(@"C:\Users\amr.mostafa\Downloads\PKI\PKI\SuperAdmin.p12", "foo123", X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable);
 
             ////var certificate = new X509Certificate2(@"D:\SuperAdmin.p12", "foo123");
             //var handler = new HttpClientHandler();
@@ -82,17 +82,15 @@ namespace DFI.Infrastructure.Persistence.Services
             //}
 
 
-            //_logger.LogInformation($"Create Certificate in Pkcs10Enroll with Certificate_Request: {certificatePkcs10EnrollRequest.Certificate_Request}");
-            //var EJBCASetting = GetEJBCASettings();
-            ////var Url = $"{EJBCASetting.URL}/v1/certificate/pkcs10enroll";
-            //var Url = $"https://197.168.1.67/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll";
-
-            //var data = new JsonContent(certificatePkcs10EnrollRequest);
-            //var response = await _client.PostAsync(Url, data);
-            ////TODO: Handle in case Error
-            //_logger.LogInformation($"Response CPkcs10Enroll in PKICertificateService : {response}");
-            //var returnedData = await response.ReadContentAs<CertificatePkcs10EnrollResponse>();
-            //return returnedData;
+            _logger.LogInformation($"Create Certificate in Pkcs10Enroll with Certificate_Request: {certificatePkcs10EnrollRequest.Certificate_Request}");
+            var EJBCASetting = GetEJBCASettings();
+            var Url = $"{EJBCASetting.URL}/v1/certificate/pkcs10enroll";
+            var data = new JsonContent(certificatePkcs10EnrollRequest);
+            var response = await _client.PostAsync(Url, data);
+            //TODO: Handle in case Error
+            _logger.LogInformation($"Response CPkcs10Enroll in PKICertificateService : {response}");
+            var returnedData = await response.ReadContentAs<CertificatePkcs10EnrollResponse>();
+            return returnedData;
 
             return null;
 
