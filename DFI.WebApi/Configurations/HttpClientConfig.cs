@@ -22,14 +22,14 @@ public static class HttpClientConfig
              var handler = new HttpClientHandler();
 
              // Load the client certificate
-             var clientCertPath = @"C:\Azure\KPI\DFI.WebApi\Certificate\SuperAdmin.p12";
+             var clientCertPath = configuration["ApiSettings:EJBCASettings:SuperAdmin"].ToString();
              var clientCertPassword = "foo123";
              var clientCertificate = new X509Certificate2(clientCertPath, clientCertPassword);
 
              handler.ClientCertificates.Add(clientCertificate);
 
              // Optional: Load CA certificate and configure validation
-             var caCertPath = @"C:\Azure\KPI\DFI.WebApi\Certificate\ManagementCA.pem";
+             var caCertPath = configuration["ApiSettings:EJBCASettings:ManagementCA"].ToString();
              var caCertificate = new X509Certificate2(caCertPath);
 
              handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
