@@ -2,16 +2,15 @@
 {
     public partial class ApplicationDbContext : DbContext
     {
-        private readonly IDateTimeService _dateTime;
+       
         private readonly ILoggerFactory _loggerFactory;
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,
-            IDateTimeService dateTime,
+            
             ILoggerFactory loggerFactory
             ) : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            _dateTime = dateTime;
+          
             _loggerFactory = loggerFactory;
         }
 
@@ -27,11 +26,11 @@
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.Created = _dateTime.NowUtc;
+                        entry.Entity.Created = DateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.LastModified = _dateTime.NowUtc;
+                        entry.Entity.LastModified = DateTime.Now;
                         break;
                 }
             }

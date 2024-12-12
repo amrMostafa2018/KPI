@@ -20,4 +20,8 @@
     <ProjectReference Include="..\DFI.Domain\DFI.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappings\" />
+  </ItemGroup>
+
 </Project>

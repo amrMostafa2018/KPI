@@ -13,4 +13,10 @@ namespace DFI.Application.Features.PKICertificate.ViewModel
         public string Response_Format { get; set; }
         public List<string> Certificate_Chain { get; set; }
     }
+
+    public class ErrorResponse
+    {
+        public int error_code { get; set; }
+        public string error_message { get; set; }
+    }
 }

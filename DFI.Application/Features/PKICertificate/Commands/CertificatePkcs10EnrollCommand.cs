@@ -1,14 +1,13 @@
 ﻿using DFI.Application.DTOs.PKICertificate;
-using DFI.Application.Features.PKICertificate.ViewModel;
 
 namespace DFI.Application.Features.PKICertificate.Commands
 {
-    public class CertificatePkcs10EnrollCommand : IRequest<Response<CertificatePkcs10EnrollResponse>>
+    public class CertificatePkcs10EnrollCommand : IRequest<ResponseVM>
     {
         public CertificatePkcs10EnrollRequest certificatePkcs10EnrollRequest { get; set; }
     }
 
-    public class CertificatePkcs10EnrollCommandHandler : IRequestHandler<CertificatePkcs10EnrollCommand, Response<CertificatePkcs10EnrollResponse>>
+    public class CertificatePkcs10EnrollCommandHandler : IRequestHandler<CertificatePkcs10EnrollCommand, ResponseVM>
     {
         private readonly IPKICertificateService _pKICertificateService;
         private readonly IMapper _mapper;
@@ -18,12 +17,9 @@ namespace DFI.Application.Features.PKICertificate.Commands
             _pKICertificateService = pKICertificateService;
         }
 
-        public async Task<Response<CertificatePkcs10EnrollResponse>> Handle(CertificatePkcs10EnrollCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseVM> Handle(CertificatePkcs10EnrollCommand request, CancellationToken cancellationToken)
         {
-            return new Response<CertificatePkcs10EnrollResponse>
-            {
-                Data = await _pKICertificateService.Pkcs10Enroll(request.certificatePkcs10EnrollRequest)
-            };
+           return await _pKICertificateService.Pkcs10Enroll(request.certificatePkcs10EnrollRequest);
         }
     }
 }

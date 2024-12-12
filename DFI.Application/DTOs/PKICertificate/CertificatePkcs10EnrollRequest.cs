@@ -8,11 +8,11 @@ namespace DFI.Application.DTOs.PKICertificate
 {
     public class CertificatePkcs10EnrollRequest
     {
-        public string Certificate_Request { get; set; }
-        public string Certificate_Profile_Name { get; set; } = "DigitalIdentityProfile";
-        public string End_Entity_Profile_Name { get; set; } = "DigitalIdentityProfile";
-        public string Certificate_Authority_Name { get; set; } = "DFIRootCA";
-        public string UserName { get; set; }
-        public bool? Include_Chain { get; set; } = false;
+        public string certificate_request { get; set; }
+        public string certificate_profile_name { get; set; } = "DigitalIdentityProfile";
+        public string end_entity_profile_name { get; set; } = "DigitalIdentityProfile";
+        public string certificate_authority_name { get; set; } = "DFIRootCA";
+        public string username { get; set; }
+        public bool? include_chain { get; set; } = false;
     }
 }

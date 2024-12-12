@@ -30,13 +30,10 @@ try
     //API Security
     builder.Services.AddJWTAuthentication(builder.Configuration);
     builder.Services.AddAuthorizationPolicies(builder.Configuration);
-    // API version
-    builder.Services.AddApiVersioningExtension();
     // API explorer
     builder.Services.AddMvcCore()
         .AddApiExplorer();
-    // API explorer version
-    builder.Services.AddVersionedApiExplorerExtension();
+
     var app = builder.Build();
 
     Log.Information("Application startup middleware registration");

@@ -8,10 +8,9 @@ namespace DFI.Application.DTOs.PKICertificate
 {
     public class SearchCertificateConfirmedRequest
     {
-        public int Max_Number_Of_Results { get; set; }
-        public List<PropertyCriteria> Criteria { get; set; }
+        public int max_number_of_results { get; set; }
+        public List<PropertyCriteria> criteria { get; set; }
     }
-
 
 
     public class PropertyCriteria

@@ -16,5 +16,3 @@ namespace DFI.Application.DTOs.PKICertificate
     }
 }
 
-
-//max_number_of_results

@@ -1,4 +1,6 @@
-﻿namespace DFI.WebApi.Middlewares
+﻿using DFI.Application.Wrappers;
+
+namespace DFI.WebApi.Middlewares
 {
     public class ErrorHandlerMiddleware
     {
@@ -21,7 +23,7 @@
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
-                var responseModel = new Response<string>() { Succeeded = false, Message = error?.Message };
+                var responseModel = new ResponseVM() { Error = error?.Message , OperationStatus = ResponseMessageStatusEnum.Failure , Data = ""};
 
                 switch (error)
                 {
@@ -33,7 +35,7 @@
                     case ValidationException e:
                         // custom application error
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        responseModel.Errors = e.Errors;
+                        responseModel.Error = e.Errors;
                         break;
 
                     case KeyNotFoundException:
