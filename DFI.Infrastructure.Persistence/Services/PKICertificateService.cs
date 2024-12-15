@@ -50,9 +50,9 @@ namespace DFI.Infrastructure.Persistence.Services
 
         public async Task<ResponseVM> RevokeSpecifiedCertificate(RevokeSpecifiedCertificateRequest revokeSpecifiedCertificateRequest)
         {
-            _logger.LogInformation($"Revoke Specified Certificate in Revoke with IssuerDn: {revokeSpecifiedCertificateRequest.IssuerDn}");
+            _logger.LogInformation($"Revoke Specified Certificate in Revoke with IssuerDn: {revokeSpecifiedCertificateRequest.issuerDn}");
             var EJBCASetting = GetEJBCASettings();
-            var Url = $"{EJBCASetting.URL}/v1/certificate/{revokeSpecifiedCertificateRequest.IssuerDn}/{revokeSpecifiedCertificateRequest.CertificateSerialNumber}/revoke?reason={revokeSpecifiedCertificateRequest.Reason}&date={revokeSpecifiedCertificateRequest.Date.ToString()}&invalidity_date={revokeSpecifiedCertificateRequest.InvalidityDate.ToString()}";
+            var Url = $"{EJBCASetting.URL}/v1/certificate/{revokeSpecifiedCertificateRequest.issuerDn}/{revokeSpecifiedCertificateRequest.certificateSerialNumber}/revoke?reason={revokeSpecifiedCertificateRequest.reason}&date={revokeSpecifiedCertificateRequest.date.ToString()}&invalidity_date={revokeSpecifiedCertificateRequest.invalidityDate.ToString()}";
             var response = await _client.PutAsync(Url, null);
             //TODO: Handle in case Error
             _logger.LogInformation($"Response Revoke Specified Certificate  in PKICertificateService : {response}");

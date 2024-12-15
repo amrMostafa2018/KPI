@@ -15,8 +15,8 @@ namespace DFI.Application.DTOs.PKICertificate
 
     public class PropertyCriteria
     {
-        public string Property { get; set; }
-        public string Value { get; set; }
-        public string Operation { get; set; }
+        public string property { get; set; }
+        public string value { get; set; }
+        public string operation { get; set; }
     }
 }

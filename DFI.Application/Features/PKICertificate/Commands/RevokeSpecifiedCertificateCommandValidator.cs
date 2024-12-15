@@ -7,23 +7,23 @@ namespace DFI.Application.Features.Positions.Commands.CreatePosition
         public RevokeSpecifiedCertificateCommandValidator()
         {
 
-            RuleFor(p => p.revokeSpecifiedCertificateRequest.IssuerDn)
+            RuleFor(p => p.revokeSpecifiedCertificateRequest.issuerDn)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull();
 
-            RuleFor(p => p.revokeSpecifiedCertificateRequest.CertificateSerialNumber)
+            RuleFor(p => p.revokeSpecifiedCertificateRequest.certificateSerialNumber)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull();
 
-            RuleFor(p => p.revokeSpecifiedCertificateRequest.Reason)
+            RuleFor(p => p.revokeSpecifiedCertificateRequest.reason)
              .NotEmpty().WithMessage("{PropertyName} is required.")
              .NotNull();
 
-            RuleFor(p => p.revokeSpecifiedCertificateRequest.Date)
+            RuleFor(p => p.revokeSpecifiedCertificateRequest.date)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull();
 
-            RuleFor(p => p.revokeSpecifiedCertificateRequest.InvalidityDate)
+            RuleFor(p => p.revokeSpecifiedCertificateRequest.invalidityDate)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull();
 

@@ -8,11 +8,11 @@ namespace DFI.Application.DTOs.PKICertificate
 {
     public class RevokeSpecifiedCertificateRequest
     {
-        public string IssuerDn { get; set; }
-        public string CertificateSerialNumber { get; set; }
-        public string Reason { get; set; }
-        public string Date { get; set; }
-        public string InvalidityDate { get; set; }
+        public string issuerDn { get; set; }
+        public string certificateSerialNumber { get; set; }
+        public string reason { get; set; }
+        public string date { get; set; }
+        public string invalidityDate { get; set; }
     }
 }
 
