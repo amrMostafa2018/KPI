@@ -13,7 +13,7 @@ namespace DFI.WebApi.Controllers
             return Ok(await Mediator.Send(new CertificatePkcs10EnrollCommand() { certificatePkcs10EnrollRequest = request}));
         }
 
-        [HttpPut("RevokeSpecifiedCertificate")]
+        [HttpPost("RevokeSpecifiedCertificate")]
         public async Task<IActionResult> RevokeSpecifiedCertificate([FromBody] RevokeSpecifiedCertificateRequest request)
         {
             return Ok(await Mediator.Send(new RevokeSpecifiedCertificateCommand() { revokeSpecifiedCertificateRequest = request }));
