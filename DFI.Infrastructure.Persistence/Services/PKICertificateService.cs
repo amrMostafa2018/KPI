@@ -4,6 +4,7 @@ using System.Net.Http;
 using DFI.Infrastructure.Persistence.helpers;
 using DFI.Application.Exceptions;
 using DFI.Application.Wrappers;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DFI.Infrastructure.Persistence.Services
 {
@@ -31,15 +32,18 @@ namespace DFI.Infrastructure.Persistence.Services
             _logger.LogInformation($"Response CPkcs10Enroll in PKICertificateService : {response}");
             if (response.IsSuccessStatusCode)
             {
+                var result = await response.ReadContentAs<CertificatePkcs10EnrollResponse>();
+                //Extract Public Key & Subject DN
+                result = ExtractPublicKeyAndSubjectDN(result.Certificate, result);
                 return new ResponseVM()
                 {
-                    Data = await response.ReadContentAs<CertificatePkcs10EnrollResponse>()
+                    Data = result
                 };
             }
             else
             {
                 var result = await response.ReadContentAs<ErrorResponse>();
-               return new ResponseVM()
+                return new ResponseVM()
                 {
                     Data = result,
                     StatusCode = response.StatusCode,
@@ -108,6 +112,28 @@ namespace DFI.Infrastructure.Persistence.Services
             EJBCASetting eJBCASetting = new EJBCASetting();
             eJBCASetting.URL = _configuration["ApiSettings:EJBCASettings:URL"];
             return eJBCASetting;
+        }
+
+        private CertificatePkcs10EnrollResponse ExtractPublicKeyAndSubjectDN(string certificateData, CertificatePkcs10EnrollResponse certificatePkcs10EnrollResponse)
+        {
+            byte[] certBytes = Convert.FromBase64String(certificateData);
+            // Load the certificate
+            var certificate = new X509Certificate2(certBytes);
+            // Extract the public key & subjectDN
+            var publicKey = certificate.GetRSAPublicKey();
+            string subjectDN = certificate.Subject;
+            if (publicKey != null)
+            {
+                string publicKeyString = Convert.ToBase64String(publicKey.ExportSubjectPublicKeyInfo());
+                certificatePkcs10EnrollResponse.Subject_DN = subjectDN;
+                certificatePkcs10EnrollResponse.Public_Key = publicKeyString;
+                return certificatePkcs10EnrollResponse;
+            }
+            else
+            {
+                certificatePkcs10EnrollResponse.Public_Key = null;
+                return certificatePkcs10EnrollResponse;
+            }
         }
     }
 }
